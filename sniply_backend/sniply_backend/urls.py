@@ -7,4 +7,5 @@ urlpatterns = [
     path("api/auth/", include("accounts.urls")),
     path("api/links/", include("links.urls")),
     path("<str:short_code>/", RedirectView.as_view(), name="redirect"),
+    path("api/usage/", include("usage.urls")),
 ]

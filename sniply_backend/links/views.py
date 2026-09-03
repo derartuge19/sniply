@@ -5,17 +5,19 @@ from .models import Link
 from .serializers import LinkSerializer
 from tracking.models import Click
 from core.utils import hash_ip, get_client_ip
-
+from usage.permissions import HasLinkQuotaRemaining
+from usage.services import increment_usage
 
 class LinkListCreateView(generics.ListCreateAPIView):
     serializer_class = LinkSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated, HasLinkQuotaRemaining]
 
     def get_queryset(self):
         return Link.objects.filter(user=self.request.user).order_by("-created_at")
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
+        increment_usage(self.request.user)
 
 
 class LinkDetailView(generics.RetrieveUpdateDestroyAPIView):
