@@ -1,5 +1,16 @@
 from rest_framework.permissions import BasePermission
 from .services import has_quota_remaining
+from rest_framework.permissions import BasePermission
+
+
+class IsProUser(BasePermission):
+    message = "This feature is only available on the Pro plan. Upgrade to unlock it."
+
+    def has_permission(self, request, view):
+        try:
+            return request.user.subscription.plan.name == "Pro"
+        except AttributeError:
+            return False
 
 
 class HasLinkQuotaRemaining(BasePermission):
