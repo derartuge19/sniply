@@ -37,4 +37,13 @@ def increment_usage(user):
 
 
 def has_quota_remaining(user):
-    return get_current_usage(user) < FREE_TIER_LIMIT
+    try:
+        subscription = user.subscription
+        link_limit = subscription.plan.link_limit
+    except AttributeError:
+        link_limit = FREE_TIER_LIMIT
+
+    if link_limit is None:
+        return True
+
+    return get_current_usage(user) < link_limit

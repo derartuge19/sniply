@@ -18,4 +18,7 @@ class RegisterSerializer(serializers.ModelSerializer):
             password=validated_data["password"],
             auth_provider="email",
         )
+
+      
+
         return user
