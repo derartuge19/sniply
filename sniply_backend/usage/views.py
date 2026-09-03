@@ -1,7 +1,7 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
-from .services import get_current_usage, FREE_TIER_LIMIT
+from .services import get_current_usage
 
 
 class CurrentUsageView(APIView):
@@ -9,8 +9,16 @@ class CurrentUsageView(APIView):
 
     def get(self, request):
         used = get_current_usage(request.user)
+
+        try:
+            limit = request.user.subscription.plan.link_limit
+        except AttributeError:
+            limit = 100
+
+        remaining = None if limit is None else max(limit - used, 0)
+
         return Response({
             "used": used,
-            "limit": FREE_TIER_LIMIT,
-            "remaining": max(FREE_TIER_LIMIT - used, 0),
+            "limit": limit,
+            "remaining": remaining,
         })

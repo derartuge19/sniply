@@ -8,4 +8,5 @@ urlpatterns = [
     path("api/links/", include("links.urls")),
     path("<str:short_code>/", RedirectView.as_view(), name="redirect"),
     path("api/usage/", include("usage.urls")),
+    path("api/billing/", include("billing.urls")),
 ]
