@@ -1,0 +1,2 @@
+web: gunicorn sniply_backend.wsgi
+worker: celery -A sniply_backend worker --loglevel=info
