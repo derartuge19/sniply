@@ -1,5 +1,18 @@
 import hashlib
 
+import requests
+
+
+def get_country_from_ip(ip_address):
+    if not ip_address or ip_address in ("127.0.0.1", "localhost"):
+        return None
+    try:
+        response = requests.get(f"http://ip-api.com/json/{ip_address}?fields=countryCode", timeout=1)
+        data = response.json()
+        return data.get("countryCode")
+    except requests.RequestException:
+        return None
+
 
 def hash_ip(ip_address):
     if not ip_address:

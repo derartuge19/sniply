@@ -11,7 +11,7 @@ from django.http import HttpResponse
 from .models import Link
 from .serializers import LinkSerializer
 from tracking.models import Click
-from core.utils import hash_ip, get_client_ip
+from core.utils import hash_ip, get_client_ip, get_country_from_ip
 from usage.permissions import HasLinkQuotaRemaining, IsProUser
 from usage.services import increment_usage
 
@@ -61,16 +61,21 @@ class LinkQRCodeView(APIView):
 
         return HttpResponse(buffer.getvalue(), content_type="image/png")
 
+from core.utils import hash_ip, get_client_ip, get_country_from_ip
+
 
 class RedirectView(View):
     def get(self, request, short_code):
         link = get_object_or_404(Link, short_code=short_code, is_active=True)
 
+        client_ip = get_client_ip(request)
+
         Click.objects.create(
             link=link,
             referrer=request.META.get("HTTP_REFERER", ""),
             user_agent=request.META.get("HTTP_USER_AGENT", ""),
-            ip_hash=hash_ip(get_client_ip(request)),
+            ip_hash=hash_ip(client_ip),
+            country=get_country_from_ip(client_ip),
         )
 
         return redirect(link.original_url)
