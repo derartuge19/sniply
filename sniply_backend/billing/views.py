@@ -25,8 +25,8 @@ class CreateCheckoutSessionView(APIView):
         session = create_checkout_session(
             user=request.user,
             plan=pro_plan,
-            success_url="http://localhost:3000/billing/success",
-            cancel_url="http://localhost:3000/billing/cancel",
+            success_url="http://localhost:5173/billing/success",
+            cancel_url="http://localhost:5173/billing/cancel",
         )
         return Response({"checkout_url": session.url})
 
