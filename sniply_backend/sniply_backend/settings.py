@@ -22,7 +22,7 @@ STRIPE_SECRET_KEY = env("STRIPE_SECRET_KEY", default="")
 STRIPE_PUBLISHABLE_KEY = env("STRIPE_PUBLISHABLE_KEY", default="")
 STRIPE_WEBHOOK_SECRET = env("STRIPE_WEBHOOK_SECRET", default="")
 
-ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", default=["localhost", "127.0.0.1", "sniply-ksfa.onrender.com"])
+ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", default=["localhost", "127.0.0.1", "sniply-ksfa.onrender.com", "*.vercel.app"])
 
 # --- Applications ---
 INSTALLED_APPS = [
@@ -150,6 +150,7 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
     "http://127.0.0.1:5173",
     "https://sniply-frontend-five.vercel.app",
+    "https://sniply-frontend-3zbti6aq1-derartuge-gmailcoms-projects.vercel.app",
 ]
 CORS_ALLOW_CREDENTIALS = True
 
