@@ -25,8 +25,8 @@ class CreateCheckoutSessionView(APIView):
         session = create_checkout_session(
             user=request.user,
             plan=pro_plan,
-            success_url="http://localhost:5173/billing/success",
-            cancel_url="http://localhost:5173/billing/cancel",
+            success_url="https://sniply-frontend-five.vercel.app/billing/success",
+            cancel_url="https://sniply-frontend-five.vercel.app/billing/cancel",
         )
         return Response({"checkout_url": session.url})
 
