@@ -151,7 +151,9 @@ CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:5173",
     "https://sniply-frontend-five.vercel.app",
     "https://sniply-frontend-3zbti6aq1-derartuge-gmailcoms-projects.vercel.app",
+    "https://sniply-frontend-3cvw5bzi0-derartuge-gmailcoms-projects.vercel.app",
 ]
+CORS_ALLOW_ALL_ORIGINS = True  # Allow all origins for development/preview deployments
 CORS_ALLOW_CREDENTIALS = True
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
