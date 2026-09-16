@@ -77,6 +77,9 @@ class StripeWebhookView(APIView):
             },
         )
 
+        # Log for debugging - ensure this doesn't affect user's links
+        print(f"User {user.email} upgraded to Pro plan. Links should remain intact.")
+
     def _handle_subscription_deleted(self, subscription_obj):
         stripe_subscription_id = subscription_obj.id
         try:
